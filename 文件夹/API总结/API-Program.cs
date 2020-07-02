@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace UnityAPI
@@ -153,6 +155,9 @@ namespace UnityAPI
         }
     }
 
+    /// <summary>
+    /// Mesh模块
+    /// </summary>
     class Mesh
     {
         /// <summary>
@@ -174,6 +179,82 @@ namespace UnityAPI
             UnityEngine.Mesh finalMesh = new UnityEngine.Mesh();//最终Mesh初始化
             finalMesh.CombineMeshes(combiners);//最终Mesh生成
             goMeshFIlter.sharedMesh = finalMesh;//将最终Mesh赋与挂载物体的MeshFilter组件
+        }
+    }
+
+    /// <summary>
+    /// <para>AssetBundle模块</para>
+    /// <para>包括资源的打包与加载使用</para>
+    /// </summary>
+    class AssetBundles
+    {
+        /// <summary>
+        /// <para>打包资源方法</para>
+        /// <para>BuildAssetBundleOptions.None:使用LZMA算法压缩,压缩包小但加载时间长,解压需要全部解压</para>
+        /// <para>BuildAssetBundleOptions.UncompressedAssetBundle:不压缩,包大,加载快</para>
+        /// <para>BuildAssetBundleOptions.ChunkBasedCompression:使用LZ4压缩,压缩包中等,可以解压指定资源</para>
+        /// </summary>
+        [MenuItem("Assets/Build AssetBundles")]//编辑器模式
+        static void BuildAllAssetBundles()
+        {
+            string dir = "AssetBundles";//指定路径
+            if (Directory.Exists(dir) == false)//若路径不存在
+            {
+                Directory.CreateDirectory(dir);//创建路径
+            }
+            BuildPipeline.BuildAssetBundles("AssetBundles", BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows64);//将资源打包至指定路径
+        }
+
+        /// <summary>
+        /// 同步从内存加载AssetBundle资源并使用
+        /// </summary>
+        void LoadAssetBundleFromMemory()
+        {
+            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            AssetBundle ab = AssetBundle.LoadFromMemory(File.ReadAllBytes(path));
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
+        }
+
+        /// <summary>
+        /// 异步从内存加载AssetBundle资源并使用
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator LoadAssetBundleFromMemoryAsync()
+        {
+            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(path));//创建request
+            yield return request;//异步返回时间
+            AssetBundle ab = request.assetBundle;//赋值给AssetBundle
+
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
+        }
+
+        /// <summary>
+        /// 同步从文件加载AssetBundle资源并使用
+        /// </summary>
+        void LoadAssetBundleFromFile()
+        {
+            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            AssetBundle ab = AssetBundle.LoadFromFile(path);
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
+        }
+
+        /// <summary>
+        /// 异步从文件加载AssetBundle资源并使用
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator LoadAssetBundleFromFileAsync()
+        {
+            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(path);//创建request
+            yield return request;//异步返回时间
+            AssetBundle ab = request.assetBundle;//赋值给AssetBundle
+
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
         }
     }
 }
