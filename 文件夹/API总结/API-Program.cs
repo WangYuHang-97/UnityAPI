@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace UnityAPI
 {
@@ -210,9 +211,16 @@ namespace UnityAPI
         /// </summary>
         void LoadAssetBundleFromMemory()
         {
-            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            string path = "AssetBundles/scene/cube";//资源路径
             AssetBundle ab = AssetBundle.LoadFromMemory(File.ReadAllBytes(path));
-            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            AssetBundle manifestAB = AssetBundle.LoadFromMemory(File.ReadAllBytes("AssetBundles/AssetBundles"));//加载AssetBundles
+            AssetBundleManifest manifest = manifestAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");//加载AssetBundles.manifest
+            string[] strs = manifest.GetAllDependencies("scene/cube");//获取该物体依赖物体数组
+            foreach (string str in strs)//分别加载
+            {
+                AssetBundle.LoadFromMemory(File.ReadAllBytes("AssetBundles/" + str));
+            }
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("Cube");//提取AssetBundle内容
             UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
         }
 
@@ -222,12 +230,20 @@ namespace UnityAPI
         /// <returns></returns>
         IEnumerator LoadAssetBundleFromMemoryAsync()
         {
-            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            string path = "AssetBundles/scene/cube";//资源路径
             AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(path));//创建request
             yield return request;//异步返回时间
             AssetBundle ab = request.assetBundle;//赋值给AssetBundle
-
-            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            AssetBundleCreateRequest requestManifestAB = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes("AssetBundles/AssetBundles"));//创建Manifest-request
+            yield return requestManifestAB;//异步返回时间
+            AssetBundle manifestAB = requestManifestAB.assetBundle;//赋值给AssetBundle
+            AssetBundleManifest manifest = manifestAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");//加载AssetBundles.manifest
+            string[] strs = manifest.GetAllDependencies("scene/cube");//获取该物体依赖物体数组
+            foreach (string str in strs)//分别加载
+            {
+                AssetBundle.LoadFromMemory(File.ReadAllBytes("AssetBundles/" + str));
+            }
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("Cube");//提取AssetBundle内容
             UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
         }
 
@@ -236,9 +252,16 @@ namespace UnityAPI
         /// </summary>
         void LoadAssetBundleFromFile()
         {
-            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            string path = "AssetBundles/scene/cube";//资源路径
             AssetBundle ab = AssetBundle.LoadFromFile(path);
-            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            AssetBundle manifestAB = AssetBundle.LoadFromFile("AssetBundles/AssetBundles");//加载AssetBundles
+            AssetBundleManifest manifest = manifestAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");//加载AssetBundles.manifest
+            string[] strs = manifest.GetAllDependencies("scene/cube");//获取该物体依赖物体数组
+            foreach (string str in strs)//分别加载
+            {
+                AssetBundle.LoadFromFile("AssetBundles/" + str);
+            }
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("Cube");//提取AssetBundle内容
             UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
         }
 
@@ -248,13 +271,35 @@ namespace UnityAPI
         /// <returns></returns>
         IEnumerator LoadAssetBundleFromFileAsync()
         {
-            string path = "AssetBundles/scene/wall.unity3d";//资源路径
+            string path = "AssetBundles/scene/cube";//资源路径
             AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(path);//创建request
             yield return request;//异步返回时间
             AssetBundle ab = request.assetBundle;//赋值给AssetBundle
-
-            GameObject wallPrefab = ab.LoadAsset<GameObject>("BlueCube");//提取AssetBundle内容
+            AssetBundleCreateRequest requestManifestAB = AssetBundle.LoadFromFileAsync("AssetBundles/AssetBundles");//创建Manifest-request
+            yield return requestManifestAB;//异步返回时间
+            AssetBundle manifestAB = requestManifestAB.assetBundle;//赋值给AssetBundle
+            AssetBundleManifest manifest = manifestAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");//加载AssetBundles.manifest
+            string[] strs = manifest.GetAllDependencies("scene/cube");//获取该物体依赖物体数组
+            foreach (string str in strs)//分别加载
+            {
+                AssetBundle.LoadFromFile("AssetBundles/" + str);
+            }
+            GameObject wallPrefab = ab.LoadAsset<GameObject>("Cube");//提取AssetBundle内容
             UnityEngine.Object.Instantiate(wallPrefab);//实例化内容
+        }
+
+        /// <summary>
+        /// 通过服务器加载AssetBundle资源并使用
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator UnityWebRequest()
+        {
+            string url = @"http://localhots/AssetBundles/cubewaal.unity3d";//网站地址
+            UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url);//创建request
+            yield return request.SendWebRequest();//异步返回时间
+            AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;//赋值给AssetBundle
+            GameObject waaPrefab = ab.LoadAsset<GameObject>("CubeWall");//提取AssetBundle内容
+            UnityEngine.Object.Instantiate(waaPrefab);//实例化内容
         }
     }
 }
