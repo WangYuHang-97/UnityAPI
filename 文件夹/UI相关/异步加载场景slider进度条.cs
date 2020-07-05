@@ -45,20 +45,19 @@ public class 异步加载场景slider进度条 : MonoBehaviour
 
     void Update()
     {
-        if (AsyncOperation==null)//如果加载完成后，不再进行之后判断
+        if (AsyncOperation == null)//如果加载完成后，不再进行之后判断
         {
             return;
         }
-
-        if (AsyncOperation.progress<0.9f)//若当前进度小于90％,则将实际加载进度赋值
+        if (AsyncOperation.progress < 0.9f)//若当前进度小于90％,则将实际加载进度赋值
         {
-            targetProcess = (int) (AsyncOperation.progress * 100);
+            targetProcess = (int)(AsyncOperation.progress * 100);
         }
         else
         {
             targetProcess = 100;//大于90％,则直接达到满值
         }
-        if (nowProcess<targetProcess)//若缓冲加载进度小于实际加载进度,将缓冲加载进度自增（为达到缓慢增加效果）
+        if (nowProcess < targetProcess)//若缓冲加载进度小于实际加载进度,将缓冲加载进度自增（为达到缓慢增加效果）
         {
             nowProcess++;
         }
