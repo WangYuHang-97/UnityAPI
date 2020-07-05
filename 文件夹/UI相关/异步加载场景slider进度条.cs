@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <para>脚本位置：Main Camera</para>
 /// <para>脚本功能：场景异步加载的进度条显示</para>
 /// </summary>
-public class 异步加载场景 : MonoBehaviour
+public class 异步加载场景slider进度条 : MonoBehaviour
 {
     #region 字段
     //引入模块
