@@ -1,0 +1,23 @@
+local UnityEngine = CS.UnityEngine --设置需要经常调用的API,方便代码读写及减少内存
+xlua.private_accessible(CS.Treasour) --使Lua可以访问私有变量
+xlua.hotfix(CS.Treasour,'CreatePrize',function(self) --用于重写方法xlua.hotfix(类名,方法名,重写方法)
+	for i=0,4,1 do
+		local go1 = UnityEngine.GameObject.Instantiate(self.diamands,self.transform.position+UnityEngine.Vector3(0,30,0)+UnityEngine.Vector3(-10+i*40,0,0),self.transform.rotation) --尽量用Local局部变量,非Static静态方法需要用：表示,静态用.即可
+		go.transform.SetParent(go1.transform,self.cavas) --所有非Static字段必须用self.前缀
+	end
+	if UnityEngine.EventSystems.EventSystem.current:IsPointerOverGameObject() then --该方法非Static静态方法需要用：
+			return
+		end
+end)
+
+xlua.private_accessible(CS.DeffendBoss) 
+util.hotfix_ex(CS.DeffendBoss,'Start',function(self) --此方法用util(同级目录必须含有util.lua),可以在该方法添加内容,而不是重写,但较消耗性能
+	self.Start(self)
+	self.m_reduceGold=self.m_reduceGold-30
+end)
+
+xlua.hotfix(CS.CreateFish,'Start',function(self)
+	CS.HotFixScript.LoadResource('level3fish3','gameobject\\enemy.ab') --此方法使用了HotFixScript类将打包资源放入字典中,其参数分别为 打包物体名称、AssetBundle填写路径
+	go=CS.HotFixScript.GetGameObject('SeaWave') --此方法使用了HotFixScript类来提取字典中物体
+	UnityEngine.GameObject.Instantiate(go)
+end)
