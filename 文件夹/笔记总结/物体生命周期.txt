@@ -1,0 +1,7 @@
+1.	Awake运行只在Gameobject的Active=true时,而Start和Update的运行只在脚本的Active=true时
+2.	OnEnable运行只在Gameobject的Active=true时(可以反复调用,及每次Active=true时都会调用一次)
+3.	FixedUpdate的帧率是固定的,于Edit=>ProjectSettings=>Time中的FixedTimestep有关,即1/FixedTimestep=调用次数/秒
+4.	FixedUpdate适合刚体部件代码运算,而有些时候代码过于复杂,会导致FixedUpdate不能够在单位时间内完成相应调用次数,因此于Edit=>ProjectSettings=>Time中的MaximumAllowedTimestep保证当前代码执行的最长时间,超出时则强制停止该方法调用,用来保护FixedUpdate能够在单位时间内完成相应调用次数
+5.	Update的执行次数和代码复杂度及硬件水平有关
+6.	LateUpdate适合摄像机跟随移动
+7.	OnDisable运行只在Gameobject的Active=false时(可以反复调用,及每次Active=false时都会调用一次)
