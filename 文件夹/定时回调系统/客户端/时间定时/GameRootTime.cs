@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameRoot : MonoBehaviour
+public class GameRootTime : MonoBehaviour
 {
     // Start is called before the first frame update
     void Awake()
