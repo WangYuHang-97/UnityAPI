@@ -1,0 +1,2 @@
+1.	IPointerClickHandler等鼠标检测接口仅适用于UI
+2.	OnMouse类型API仅用于鼠标左键

@@ -127,6 +127,22 @@ namespace UnityAPI
         {
             return System.Environment.CurrentDirectory;
         }
+
+        /// <summary>
+        /// 射线检测系统,返回鼠标点击点位置
+        /// </summary>
+        /// <returns></returns>
+        Vector3 RaycastHitSystem()
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out hit);
+            if (hit.collider.tag == "XX")
+            {
+                return hit.point;
+            }
+            return Vector3.zero;
+        }
     }
 
     /// <summary>
