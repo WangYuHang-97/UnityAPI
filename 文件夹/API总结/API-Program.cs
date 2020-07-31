@@ -18,7 +18,7 @@ namespace UnityAPI
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        int CeilToInt(float num)
+        public static int CeilToInt(float num)
         {
             return Mathf.CeilToInt(num);
         }
@@ -28,11 +28,31 @@ namespace UnityAPI
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        int FloorToInt(float num)
+        public static int FloorToInt(float num)
         {
             return Mathf.FloorToInt(num);
         }
 
+        /// <summary>
+        /// 返回随机数
+        /// </summary>
+        /// <typeparam name="T">数组类型</typeparam>
+        /// <param name="values">数组</param>
+        /// <returns></returns>
+        public static T GetRandomValueFrom<T>(params T[] values)
+        {
+            return values[UnityEngine.Random.Range(0, values.Length)];
+        }
+
+        /// <summary>
+        /// 随机概率，判断概率是否成功
+        /// </summary>
+        /// <param name="percent">概率大小(1~100)</param>
+        /// <returns></returns>
+        public static bool Percent(int percent)
+        {
+            return UnityEngine.Random.Range(0, 100) < percent;
+        }
     }
 
     /// <summary>
@@ -41,7 +61,7 @@ namespace UnityAPI
     /// </summary>
     class Coordinate
     {
-        private Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        private static Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         /// <summary>
         /// <para>将屏幕鼠标坐标导出Local坐标</para>
@@ -49,7 +69,7 @@ namespace UnityAPI
         /// <para>其中Local原点坐标坐标为Canvas中心点,左下为（-Width/2,-Height/2）,右上为(Width/2,Height/2)</para>
         /// </summary>
         /// <returns></returns>
-        Vector2 ScreenPointToLocalPoint()
+        public static Vector2 ScreenPointToLocalPoint()
         {
             Vector2 position;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
@@ -63,7 +83,7 @@ namespace UnityAPI
         /// <para>其中World原点坐标坐标为Canvas左下角,右上为(Width,Height)</para>
         /// </summary>
         /// <returns></returns>
-        Vector3 ScreenPointToWorldPoint()
+        public static Vector3 ScreenPointToWorldPoint()
         {
             Vector3 position;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
@@ -74,7 +94,7 @@ namespace UnityAPI
         /// 将屏幕坐标传递为视口坐标,左下(0,0),右上(1，1)
         /// </summary>
         /// <returns></returns>
-        Vector3 ScreenToViewportPoint()
+        public static Vector3 ScreenToViewportPoint()
         {
             return Camera.main.ScreenToViewportPoint(Input.mousePosition);
         }
@@ -85,7 +105,7 @@ namespace UnityAPI
         /// </summary>
         /// <param name="go"></param>
         /// <returns></returns>
-        Vector3 WorldToScreenPoint(GameObject go)
+        public static Vector3 WorldToScreenPoint(GameObject go)
         {
             return Camera.main.WorldToScreenPoint(go.transform.position);
         }
@@ -94,7 +114,7 @@ namespace UnityAPI
         /// <para>将视口坐标传递为屏幕坐标,左下(0，0)右上(Width,Height)</para>
         /// </summary>
         /// <returns></returns>
-        Vector3 ViewportToScreenPoint()
+        public static Vector3 ViewportToScreenPoint()
         {
             return Camera.main.ViewportToScreenPoint(new Vector3(1, 1));
         }
@@ -104,13 +124,13 @@ namespace UnityAPI
     /// <para>事件模块</para>
     /// <para>包含各种检测方法</para>
     /// </summary>
-    class EventSystem
+    public class EventSystem
     {
         /// <summary>
         /// 用于检测鼠标下面是否有UI(需点击)
         /// </summary>
         /// <returns></returns>
-        bool IsPointerOverGameObject()
+        public static bool IsUIUnderMouse()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -120,19 +140,46 @@ namespace UnityAPI
         }
 
         /// <summary>
+        /// 复制内容至剪切板
+        /// </summary>
+        /// <param name="str">文本内容</param>
+        /// <returns></returns>
+        public static string CopyText2Lipborad(string str)
+        {
+            return GUIUtility.systemCopyBuffer = str;
+        }
+
+        /// <summary>
         /// 用于输出Assets文件夹路径
         /// </summary>
         /// <returns></returns>
-        string AssetsResourcePath()
+        public static string AssetsResourcePath()
+        {
+            return Application.dataPath;
+        }
+
+        /// <summary>
+        /// 用于输出项目文件夹路径
+        /// </summary>
+        /// <returns></returns>
+        public static string ProgrResourcePath()
         {
             return System.Environment.CurrentDirectory;
+        }
+
+        /// <summary>
+        /// 打开文件夹
+        /// </summary>
+        public static void OpenFolder()
+        {
+            Application.OpenURL("file:///" + Application.dataPath);
         }
 
         /// <summary>
         /// 射线检测系统,返回鼠标点击点位置
         /// </summary>
         /// <returns></returns>
-        Vector3 RaycastHitSystem()
+        public static Vector3 RaycastHitSystem()
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -149,35 +196,124 @@ namespace UnityAPI
     /// <para>Tranfrom模块</para>
     /// <para>包含移动方法</para>
     /// </summary>
-    class Tranfrom : UnityEngine.Transform
+    class TranfromAPI
     {
         /// <summary>
         /// 若localRotation变化，则旋转一倍Rotation变化值进行移动
         /// </summary>
-        void TransformForwardWorld()
+        public static void TransformForwardWorld(Transform transform)
         {
             transform.Translate(transform.forward * Time.deltaTime, Space.World);
         }
         /// <summary>
         /// 若localRotation变化，则旋转二倍Rotation变化值进行移动(在world基础上+1)
         /// </summary>
-        void TransformForwardSelf()
+        public static void TransformForwardSelf(Transform transform)
         {
             transform.Translate(transform.forward * Time.deltaTime, Space.Self);
         }
         /// <summary>
         /// 朝world-forward移动
         /// </summary>
-        void Vector3ForwardWorld()
+        public static void Vector3ForwardWorld(Transform transform)
         {
             transform.Translate(Vector3.forward * Time.deltaTime, Space.Self);
         }
         /// <summary>
         /// 朝local-forward移动
         /// </summary>
-        void Vector3ForwardSelf()
+        public static void Vector3ForwardSelf(Transform transform)
         {
             transform.Translate(Vector3.forward * Time.deltaTime, Space.World);
+        }
+
+        /// <summary>
+        /// 重置Tramsform(localPosition\localScale\localRotation)
+        /// </summary>
+        /// <param name="transform"></param>
+        public static void Identity(Transform transform)
+        {
+            transform.localPosition = Vector3.zero;
+            transform.localScale = Vector3.one;
+            transform.localRotation = Quaternion.identity;
+        }
+
+        /// <summary>
+        /// 修改本地X值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="x">修改值X</param>
+        public static void SetLocalPosX(Transform transform, float x)
+        {
+            var localPos = transform.localPosition;
+            localPos.x = x;
+            transform.localPosition = localPos;
+        }
+
+        /// <summary>
+        /// 修改本地Y值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="y">修改值Y</param>
+        public static void SetLocalPosY(Transform transform, float y)
+        {
+            var localPos = transform.localPosition;
+            localPos.y = y;
+            transform.localPosition = localPos;
+        }
+
+        /// <summary>
+        /// 修改本地Z值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="z">修改值Z</param>
+        public static void SetLocalPosZ(Transform transform, float z)
+        {
+            var localPos = transform.localPosition;
+            localPos.z = z;
+            transform.localPosition = localPos;
+        }
+
+        /// <summary>
+        /// 修改本地X,Y值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="x">修改值X</param>
+        /// <param name="y">修改值Y</param>
+        public static void SetLocalPosXY(Transform transform, float x, float y)
+        {
+            var localPos = transform.localPosition;
+            localPos.x = x;
+            localPos.y = y;
+            transform.localPosition = localPos;
+        }
+
+        /// <summary>
+        /// 修改本地X,Y值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="x">修改值X</param>
+        /// <param name="z">修改值Z</param>
+        public static void SetLocalPosXZ(Transform transform, float x, float z)
+        {
+            var localPos = transform.localPosition;
+            localPos.x = x;
+            localPos.z = z;
+            transform.localPosition = localPos;
+        }
+
+        /// <summary>
+        /// 修改本地Y,Z值
+        /// </summary>
+        /// <param name="transform">需要修改的Transform</param>
+        /// <param name="y">修改值Y</param>
+        /// <param name="z">修改值Z</param>
+        public static void SetLocalPosYZ(Transform transform, float y, float z)
+        {
+            var localPos = transform.localPosition;
+            localPos.y = y;
+            localPos.z = z;
+            transform.localPosition = transform.localPosition;
         }
     }
 
@@ -190,7 +326,7 @@ namespace UnityAPI
         /// <para>用于合并多个gameObject的mesh成一个mesh(未赋material)</para>
         /// <para>可以减少Batche优化性能</para>
         /// </summary>
-        void MeshCombine()
+        public static void MeshCombine()
         {
             GameObject go = GameObject.Find("挂载物体");//空gameobject,用于挂载新生成Mesh
             MeshFilter goMeshFIlter = go.AddComponent<MeshFilter>();//添加MeshFilter组件

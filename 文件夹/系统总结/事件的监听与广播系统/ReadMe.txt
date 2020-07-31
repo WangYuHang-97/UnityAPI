@@ -1,0 +1,8 @@
+1.	添加某类型事件于脚本EventType
+2.	再创建该事件脚本ShowText
+3.	添加该事件需要调用的委托方法后添加AddListener、RemoveListener调用周期
+4.	在合适的地方通过（ButtonClick）Broadcast调用，则所有通过AddListener添加该类型事件的物体都会调用该委托方法
+
+注意事项
+1.	ButtonClick、ShowText测试类，Callback、EventType数据类、EventCenter核心算法
+2.	在Package中直接通过Button 可以调用所有Text输出ShowText中委托方法
