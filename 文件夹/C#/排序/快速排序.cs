@@ -42,7 +42,6 @@ public class 快速排序 : MonoBehaviour
                 }
             }
             dataArray[i] = x;//left - i - right
-
             QuickSort(dataArray, left, i - 1);
             QuickSort(dataArray, i + 1, right);
         }
