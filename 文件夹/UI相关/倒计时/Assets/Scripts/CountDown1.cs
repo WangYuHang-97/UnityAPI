@@ -40,6 +40,11 @@ namespace EasyUI
             Invoke("GameOver",2f);//此处建议使用自制计时器
 	    }
 
+	    void test()
+	    {
+
+	    }
+
 	    void GameOver()
 	    {
 	        Debug.Log("游戏结束");
