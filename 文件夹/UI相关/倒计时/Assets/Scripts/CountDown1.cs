@@ -3,8 +3,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间
-// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改
 namespace EasyUI
 {
 	public partial class CountDown1 : MonoBehaviour
@@ -13,6 +11,9 @@ namespace EasyUI
 	    private int time;//时间
 	    private float moveDis;//移动距离
 
+        /// <summary>
+        /// 开始调用
+        /// </summary>
         void Start()
 		{
 		    time = Time;
@@ -31,7 +32,7 @@ namespace EasyUI
 	            Tween move = this.Text_Time1.transform.DOLocalMoveY(this.Text_Time1.transform.localPosition.y + moveDis, 1f).SetEase(Ease.InOutElastic);
 	            move.OnKill(() =>
 	            {
-	                TextMove(Text_Time1.transform.localPosition.y > Text_Time2.transform.localPosition.y
+	                TextMove(Text_Time1.transform.localPosition.y > Text_Time2.transform.localPosition.y//最上方那个Text移动到下方
 	                    ? Text_Time1
 	                    : Text_Time2);
 	            });
@@ -40,12 +41,19 @@ namespace EasyUI
             Invoke("GameOver",2f);//此处建议使用自制计时器
 	    }
 
+        /// <summary>
+        /// 倒计数结束调用
+        /// </summary>
 	    void GameOver()
 	    {
 	        Debug.Log("游戏结束");
 	        Application.Quit();
         }
 
+        /// <summary>
+        /// 文本移动方法
+        /// </summary>
+        /// <param name="text"></param>
 	    void TextMove(Text text)
 	    {
 	        text.transform.localPosition -= new Vector3(0, 2 * moveDis);
