@@ -371,6 +371,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1786576516 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7471422127863884060, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+  m_PrefabInstance: {fileID: 1781808505904971794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &309224233534649248 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2085400446028624818, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
@@ -383,6 +394,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 887716981}
     m_Modifications:
+    - target: {fileID: 244369205049410114, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: Text_Item
+      value: 
+      objectReference: {fileID: 1786576516}
     - target: {fileID: 2085400446028624818, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -467,9 +482,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2312407608326583450, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312407608326583450, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312407608326583450, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 381
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194974628248840675, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: m_Name
+      value: Text_Item
+      objectReference: {fileID: 0}
     - target: {fileID: 6677444231787197384, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
       propertyPath: m_Name
       value: ShootResourcesPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7471422127863884060, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ef7ecb82b52f3e4a9932c196eaaada9, type: 3}

@@ -41,15 +41,15 @@ namespace ShootResources
 	        turnplateItemTotalProbability = 0;
 	        TurnplateItem basicsalRope = new TurnplateItem("Reward_Bullet", 60,30,-30,0);
 	        turnplateItemList.Add(basicsalRope);
-            basicsalRope = new TurnplateItem("Reward_Treasure", 2,-30,-90,1);
+            basicsalRope = new TurnplateItem("Reward_Meat", 2,-30,-90,1);
             turnplateItemList.Add(basicsalRope);
-            basicsalRope = new TurnplateItem("Reward_Fish", 20,-90,-150,2);
+            basicsalRope = new TurnplateItem("Reward_Fish", 20,-90,-150,2); 
             turnplateItemList.Add(basicsalRope);
 	        basicsalRope = new TurnplateItem("Reward_Fruit", 20, -150, -210,3);
 	        turnplateItemList.Add(basicsalRope);
 	        basicsalRope = new TurnplateItem("Reward_Vegetable", 20, -210, -270,4);
 	        turnplateItemList.Add(basicsalRope);
-	        basicsalRope = new TurnplateItem("Reward_Meat", 20, -270, -330,5);
+	        basicsalRope = new TurnplateItem("Reward_Treasure", 20, -270, -330,5);
 	        turnplateItemList.Add(basicsalRope);
 
             foreach (var item in turnplateItemList)
@@ -84,7 +84,7 @@ namespace ShootResources
         void OnEnable()
         {
             turnplateItem = GetTurnplateItem();//获得轮盘资源
-            Debug.Log(turnplateItem.name);
+            this.Text_Item.text = turnplateItem.name;
             Tween open = this.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.OutBack);//打开轮盘tween
             open.OnKill(StartReallyRotate);//打开后开启旋转
         }

@@ -1,0 +1,1 @@
+点击Canvas-ShootResourcesPanel-Ept_Turnplate setActive = ture 即可
