@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LiftingRope_ClothAssetBundle
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: -7775649970217235406, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: 317510110073600767, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: -2130774461241244688, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: 1794269692256239507, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: -3027871755665553387, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: 2306750790303342178, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    - {fileID: -6490931869403549475, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+    totalSpriteSurfaceArea: 596536
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -2130774461241244688, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: 317510110073600767, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: -7775649970217235406, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: -3027871755665553387, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: 2306750790303342178, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: -6490931869403549475, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  - {fileID: 1794269692256239507, guid: 15e113fe939190f4586a404f7a17c2e1, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - LiftingRope_Cloth3
+  - LiftingRope_Cloth2
+  - LiftingRope_Cloth1
+  - LiftingRope_Cloth7
+  - LiftingRope_Cloth6
+  - LiftingRope_Cloth5
+  - LiftingRope_Cloth4
+  m_Tag: LiftingRope_ClothAssetBundle
+  m_IsVariant: 0
