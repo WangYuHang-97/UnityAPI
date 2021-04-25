@@ -1,0 +1,1 @@
+xlua.hotfix(CS.Treasour,'CreatePrize',nil) --此方法用来Dispose lua文件,即将所有使用方法置空
