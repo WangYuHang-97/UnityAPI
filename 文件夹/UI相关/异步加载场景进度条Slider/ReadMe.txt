@@ -1,3 +1,3 @@
 该方法用来实现游戏加载进度条
 注意事项:
-	1.需导入Silder Gameobject
+	1、Scene导入到buildingSetting，顺序：StartScene 、LoadingScene、MainScene
